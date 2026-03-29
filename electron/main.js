@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron'
 import { join } from 'path'
+import { autoUpdater } from 'update-electron-app'
+
+// Enable auto-updates via update.electronjs.org
+autoUpdater()
 
 function createWindow() {
   const win = new BrowserWindow({

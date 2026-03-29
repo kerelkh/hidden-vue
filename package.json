@@ -1,10 +1,14 @@
 {
   "name": "hidden-vue",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "description": "Hidden Monitoring - Vue 3 desktop app with Electron",
   "main": "electron/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kerelkh/hidden-vue.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
@@ -21,7 +25,8 @@
     "lucide-vue-next": "^0.468.0",
     "@vueuse/core": "^12.8.2",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.2.0"
+    "tailwind-merge": "^3.2.0",
+    "update-electron-app": "^2.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
@@ -47,6 +52,11 @@
       "electron/**/*",
       "package.json"
     ],
+    "publish": {
+      "provider": "github",
+      "owner": "kerelkh",
+      "repo": "hidden-vue"
+    },
     "win": {
       "target": "nsis",
       "icon": "public/favicon.ico"
