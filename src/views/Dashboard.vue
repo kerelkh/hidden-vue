@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { Head } from '@inertiajs/vue3' // Wait we don't have Inertia. Let's remove that and just use document.title
 import { useChannels } from '@/composables/useChannels'
 
 const { channels, initializeChannels, toggleChannel, activeChannelCount } = useChannels()
