@@ -1,6 +1,13 @@
-const { app, BrowserWindow } = require('electron')
-const path = require('path')
+import { app, BrowserWindow } from 'electron'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { createRequire } from 'node:module'
+
+const require = createRequire(import.meta.url)
 require('update-electron-app')()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function createWindow() {
   const win = new BrowserWindow({
