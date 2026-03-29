@@ -3,10 +3,14 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "description": "Hidden Monitoring - Vue 3 desktop app with Electron",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
+    "electron:dev": "vite build && electron .",
+    "electron:build": "vue-tsc && vite build && electron-builder",
     "format": "prettier --write src/",
     "format:check": "prettier --check src/"
   },
@@ -28,6 +32,28 @@
     "tailwindcss": "^4.1.1",
     "tw-animate-css": "^1.2.5",
     "prettier": "^3.4.2",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "electron": "^33.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.kerel.hidden-monitoring",
+    "productName": "HiddenMonitoring",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/favicon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "public/favicon.svg"
+    }
   }
 }

@@ -1,65 +1,81 @@
-# Hidden Monitoring (Vue 3 Standalone)
+# Hidden Monitoring (Vue 3 + Electron)
 
-Real-time news and live TV monitoring for Indonesia. Built with Vue 3, TypeScript, Vite, Tailwind CSS, and Swiper.
+Real-time live TV monitoring for Indonesia. Built with Vue 3, TypeScript, Vite, Tailwind CSS, and packaged with Electron for desktop installation.
 
 ## Features
 
-- **Dashboard**: Live TV streams from Indonesian channels (YouTube embeds). Pause/play all, toggle individual channels.
-- **News**: Article carousels by category (Criminals, Economy, Intelligence, World). Manual CRUD, local storage persistence.
-- **No backend required** — runs entirely in the browser.
-- **Content Security Policy** configured for safe embedding.
+- **Dashboard**: Live TV streams from Indonesian channels (YouTube embeds). Toggle individual channels on/off.
+- **No backend required** — runs entirely on the client.
+- **Desktop app** via Electron (installable on Windows, macOS, Linux).
 
 ## Tech Stack
 
 - Vue 3 (Composition API + TypeScript)
 - Vue Router (hash mode)
 - Tailwind CSS 4
-- Swiper (vertical carousels)
-- Lucide icons (optional)
+- Swiper (carousels — currently unused but available)
+- Electron (desktop packaging)
 
-## Setup
+## Setup & Development
 
 ```bash
 # Install dependencies
 npm install
 
-# Start dev server
+# Run web dev server (browser)
 npm run dev
 
-# Build for production
+# Build for web
 npm run build
-
-# Preview production build
 npm run preview
 ```
 
-## Development
+## Build Desktop App (Electron)
 
-The project uses:
-- `src/composables/useChannels.ts` — channel state management (localStorage)
-- `src/composables/useNews.ts` — article state management (localStorage)
-- `src/views/Dashboard.vue` — live TV grid
-- `src/views/News.vue` — article carousels with add/edit/delete
-- `src/views/Welcome.vue` — landing page
+```bash
+# Install Electron dependencies first
+npm install --save-dev electron electron-builder
+
+# Run Electron in development (builds Vue first, then launches app)
+npm run electron:dev
+
+# Build distributable installers (Windows/Linux)
+npm run electron:build
+```
+
+Built installers will be in the `release/` directory.
+
+## Deployment
+
+### Web
+- Deploy the `dist/` folder to any static host (Caddy, GitHub Pages, Netlify, Vercel).
+- CSP is configured in `index.html` for YouTube embeds.
+
+### Desktop
+- Use `npm run electron:build` to create platform-specific installers (`.exe`, `.AppImage`, etc.).
+- The `release/` folder contains the installers.
+
+## Architecture
+
+- **Channels**: Managed via `src/composables/useChannels.ts`. Stored in `localStorage` with defaults for Indonesian news channels.
+- **Dashboard**: `src/views/Dashboard.vue` displays a grid of YouTube embeds. Toggle channels via sidebar.
+- **No authentication, no server, no RSS fetching** — entirely client-side.
 
 ## CSP (Content Security Policy)
 
-`index.html` includes a CSP meta tag that allows:
-- Scripts and styles from self
-- YouTube embeds
+`index.html` includes a CSP meta tag allowing:
+- Scripts and styles from `'self'`
+- YouTube embeds (`frame-src`)
 - Fonts from fonts.bunny.net
 
-For production, adjust the CSP as needed.
+Adjust as needed for your deployment.
 
-## Data Model
+## Future Ideas
 
-### Channels
-Stored in `localStorage` key `live_tv_channels`. Defaults to 9 Indonesian news channels.
+- Add RSS feed fetch with a tiny backend (if automation needed)
+- Multi-device sync via a simple backend
+- More channels/customization
 
-### Articles
-Stored in `localStorage` key `hidden_news_articles`, max 1000 items. Categories: `criminals`, `economy`, `intelligence`, `world`.
+## License
 
-## Notes
-
-- This app is a client-side only rewrite of the original Laravel + Inertia app (kerelkh/hidden-monitoring).
-- No authentication, no server, no RSS fetching. Articles are managed manually.
+MIT (or choose your own)
