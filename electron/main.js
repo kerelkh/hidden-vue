@@ -1,9 +1,13 @@
 import { app, BrowserWindow } from 'electron'
-import { join } from 'path'
-import { autoUpdater } from 'update-electron-app'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { createRequire } from 'module'
 
-// Enable auto-updates via update.electronjs.org
-autoUpdater()
+const require = createRequire(import.meta.url)
+require('update-electron-app')()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -14,14 +18,11 @@ function createWindow() {
       contextIsolation: true,
     },
     title: 'Hidden Monitoring',
-    icon: join(__dirname, '../public/favicon.svg')
+    icon: path.join(__dirname, '../public/favicon.svg')
   })
 
   // Load the Vite built index.html
-  win.loadFile(join(__dirname, '../dist/index.html'))
-
-  // Open DevTools in development
-  // win.webContents.openDevTools()
+  win.loadFile(path.join(__dirname, '../dist/index.html'))
 }
 
 app.whenReady().then(() => {
