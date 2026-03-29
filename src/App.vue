@@ -1,14 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, RouterLink } from 'vue-router'
-
-const route = useRoute()
-
-const navItems = [
-  { name: 'Dashboard', path: '/dashboard', icon: 'LayoutDashboard' },
-]
-
-const isActive = (path: string) => route.path === path
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>

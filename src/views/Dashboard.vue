@@ -2,15 +2,13 @@
 import { ref, onMounted } from 'vue'
 import { useChannels } from '@/composables/useChannels'
 
-const { channels, initializeChannels, toggleChannel, activeChannelCount } = useChannels()
+const { channels, initializeChannels, activeChannelCount } = useChannels()
 
 const isAllPaused = ref(false)
-const gridRef = ref<HTMLDivElement>()
 const iframes: Record<number, HTMLIFrameElement> = {}
 
 onMounted(() => {
   initializeChannels()
-  // Set initial title
   document.title = 'Live TV Monitoring - Hidden Monitoring'
 })
 
